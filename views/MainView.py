@@ -1,6 +1,7 @@
 from tkinter import *
 import time
 import sys
+from core import Assistant
 
 def handleStartBtn():
     pwd1 = ents[0][1].get().strip()
@@ -20,7 +21,7 @@ def handleStartBtn():
     proxy = ents[13][1]
     file = ents[14][1]
 
-    credentials = dict()
+    assistant = Assistant(uname1, pwd1)
 
     for key in ents:
         print(key)

@@ -1,0 +1,4 @@
+Install
+pip install instaloader
+pip install openpyxl
+pip install schedule
