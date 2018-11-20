@@ -21,10 +21,31 @@ def handleStartBtn():
     proxy = ents[13][1]
     file = ents[14][1]
 
-    assistant = Assistant(uname1, pwd1)
+    userNames = []
+    if uname2:
+        userNames.append(uname2)
+    if uname3:
+        userNames.append(uname3)
+    if uname4:
+        userNames.append(uname4)
+    if uname5:
+        userNames.append(uname5)
+    if uname6:
+        userNames.append(uname6)
+    if uname7:
+        userNames.append(uname7)
+    if uname8:
+        userNames.append(uname8)
+    if uname9:
+        userNames.append(uname9)
+    if uname10:
+        userNames.append(uname10)
+    if uname11:
+        userNames.append(uname11)
 
-    for key in ents:
-        print(key)
+    if uname1 and pwd1:
+        assistant = Assistant()
+        assistant.initializeAssistant(uname1, pwd1, userNames, time1, proxy, file)
 
 
 def startBtnClick():
