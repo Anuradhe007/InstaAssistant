@@ -17,9 +17,9 @@ def handleStartBtn():
     uname10 = ents[10][1].get().strip()
     uname11 = ents[11][1].get().strip()
 
-    time1 = ents[12][1]
-    proxy = ents[13][1]
-    file = ents[14][1]
+    time1 = ents[12][1].get().strip()
+    proxy = ents[13][1].get().strip()
+    file = ents[14][1].get().strip()
 
     userNames = []
     if uname2:
