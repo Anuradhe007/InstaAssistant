@@ -22,7 +22,7 @@ class Assistant:
         self.startedTime = datetime.datetime.strptime(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                                                       "%Y-%m-%d %H:%M:%S")
         self.endingTime = datetime.datetime.strptime(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                                                     "%Y-%m-%d %H:%M:%S") + datetime.timedelta(hours=4)
+                                                     "%Y-%m-%d %H:%M:%S") + datetime.timedelta(hours=24)
         self.s = requests.Session()
         self.schedulerInitialize()
 
@@ -39,7 +39,7 @@ class Assistant:
 
         posts = instaloader.Profile.from_username(self.loaderObject.context, userName).get_posts()
         self.loaderObject.close()
-        time.sleep(random.randint(30, 60))
+        time.sleep(random.randint(30, 120))
 
         SINCE = self.startedTime
         UNTIL = self.endingTime
@@ -57,7 +57,7 @@ class Assistant:
 
     def getUserFollowers(self, userName):
         followers = instaloader.Profile.from_username(self.loaderObject.context, userName).get_followers()
-        time.sleep(2)
+        time.sleep(random.randint(30, 120))
         return followers
 
     def extractNecessaryDetails(self, userNameList):
@@ -102,19 +102,20 @@ class Assistant:
 
     def generateFollowers(self):
         print("Followers generator")
-        loadrObject = instaloader.Instaloader()
-        try:
-            loadrObject.login(self.userName, self.password)
-            time.sleep(2)
-        except:
-            print('Login error for username -> ' + self.userName)
-            sys.exit()
-        self.loaderObject = loadrObject
+
         for userName in self.userNameList:
+            loadrObject = instaloader.Instaloader()
+            try:
+                loadrObject.login(self.userName, self.password)
+                time.sleep(random.randint(5, 10))
+            except:
+                print('Login error for username -> ' + self.userName)
+                sys.exit()
+            self.loaderObject = loadrObject
             followers = self.getUserFollowers(userName)
             self.writeFollowersToExcel(userName, followers, self.filePath)
-        self.loaderObject.close()
-        time.sleep(2)
+            self.loaderObject.close()
+            time.sleep(random.randint(30, 120))
 
     def createExcelFile(self, userName, postCreatedTime, detailsList, filePath):
         fileName = self.fileNameCreator(userName, postCreatedTime)
