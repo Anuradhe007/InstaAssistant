@@ -29,7 +29,8 @@ class Assistant:
     def getUserPosts(self, userName):
         loadrObject = instaloader.Instaloader()
         try:
-            self.setProxy(self.proxy)
+            proxies = {'http': self.proxy, 'https': self.proxy}
+            requests.session().proxies.update(proxies)
             loadrObject.login(self.userName, self.password)
             time.sleep(random.randint(2, 10))
         except:
@@ -39,7 +40,7 @@ class Assistant:
 
         posts = instaloader.Profile.from_username(self.loaderObject.context, userName).get_posts()
         self.loaderObject.close()
-        time.sleep(random.randint(30, 120))
+        time.sleep(random.randint(30, 300))
 
         SINCE = self.startedTime
         UNTIL = self.endingTime
@@ -57,7 +58,7 @@ class Assistant:
 
     def getUserFollowers(self, userName):
         followers = instaloader.Profile.from_username(self.loaderObject.context, userName).get_followers()
-        time.sleep(random.randint(30, 120))
+        time.sleep(random.randint(30, 300))
         return followers
 
     def extractNecessaryDetails(self, userNameList):
@@ -115,7 +116,7 @@ class Assistant:
             followers = self.getUserFollowers(userName)
             self.writeFollowersToExcel(userName, followers, self.filePath)
             self.loaderObject.close()
-            time.sleep(random.randint(30, 120))
+            time.sleep(random.randint(30, 300))
 
     def createExcelFile(self, userName, postCreatedTime, detailsList, filePath):
         fileName = self.fileNameCreator(userName, postCreatedTime)
